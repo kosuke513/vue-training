@@ -1,20 +1,27 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import VueRouter from 'vue-router'
+import Todo from '../views/Todo.vue'
+import Achieve from '../views/Achieve.vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'todo',
-      component: Todo
-    },
-    {
-      path: '/achieve',
-      name: 'achieve',
-      component: Achieve
-    }
-  ]
+const routes = [
+  {
+    path: '/',
+    name: 'todo',
+    component: Todo
+  },
+  {
+    path: '/achieve',
+    name: 'Achieve',
+    component: Achieve
+  }
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 })
+
+export default router

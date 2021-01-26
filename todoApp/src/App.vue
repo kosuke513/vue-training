@@ -1,13 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <headerView></headerView>
+    <p>こんにちは</p>
     <router-view/>
+    <div class="item-container">
+      <todoItem></todoItem>
+      <todoItem></todoItem>
+      <todoItem></todoItem>
+    </div>
+    <footerView></footerView>
   </div>
 </template>
 
 <script>
+import headerView from './components/Header.vue'
+import todoItem from './components/Item.vue'
+import footerView from './components/Footer.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    headerView,
+    todoItem,
+    footerView
+  }
 }
 </script>
 
@@ -20,4 +36,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
 </style>
