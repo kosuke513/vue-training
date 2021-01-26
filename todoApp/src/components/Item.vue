@@ -1,6 +1,11 @@
 <template>
   <div class="item-outline">
-    <h3 v-show="formHidden">{{ title }}</h3>
+    <slot name="first" :slotProp="discription"></slot>
+    <slot name="second" :slotProp="discription"></slot>
+    <h3 v-show="formHidden">{{ title }}
+      <input v-model.number="point" v-show="!pointHidden" @blur="emitPoint">
+      <span v-show="pointHidden" @click="switchPointHidden">{{ point }}</span>
+    </h3>
     <input v-show="!formHidden" v-model="title">
     <div class="item-container">
       <div class="item-left">
@@ -23,17 +28,30 @@
 
 <script>
 export default {
+  props: ['title','text','date'],
   data () {
     return {
-      title: 'タイトル',
-      text: 'テキスト',
-      date: '2021/1/12',
-      formHidden: true
+      formHidden: true,
+      oldPoint: 0,
+      point: 0,
+      pointHidden: true,
+      discription: {
+        text: 'modifyを押すとlistを編集することができます。',
+        item: '数字はClickすると編集することができます'
+        }
     }
   },
   methods: {
     switchtextHidden: function () {
       return this.formHidden = !this.formHidden
+    },
+    switchPointHidden: function () {
+      this.oldPoint = this.point
+      return this.pointHidden = !this.pointHidden
+    },
+    emitPoint: function(){
+      this.$emit('total-point', this.oldPoint, this.point)
+      return this.pointHidden = !this.pointHidden
     }
   }
 }

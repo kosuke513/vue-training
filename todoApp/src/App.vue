@@ -2,11 +2,20 @@
   <div id="app">
     <headerView></headerView>
     <p>こんにちは</p>
-    <router-view/>
+    <h2>合計：{{ totalPoint }}</h2>
     <div class="item-container">
-      <todoItem></todoItem>
-      <todoItem></todoItem>
-      <todoItem></todoItem>
+      <todoItem :title="title" :text="text" :date="date" @total-point="countTotalPoint">
+        <template v-slot:first="slotProps">
+          <p>{{ slotProps.discription.text }}</p>
+        </template>
+      </todoItem>
+      <todoItem :title="title" :text="text" :date="date" @total-point="countTotalPoint">
+        <template #second="{discription}">
+          <p>{{ discription.item }}</p>
+        </template>
+      </todoItem>
+      <todoItem :title="title" :text="text" :date="date" @total-point="countTotalPoint"></todoItem>
+      <todoItem :title="title" :text="text" :date="date" @total-point="countTotalPoint"></todoItem>
     </div>
     <footerView></footerView>
   </div>
@@ -23,6 +32,19 @@ export default {
     headerView,
     todoItem,
     footerView
+  },
+  data() {
+    return {
+      totalPoint: 0,
+      title: 'タスクのタイトル',
+      text: 'タスクの詳細',
+      date: '2020/1/26'
+    }
+  },
+  methods: {
+    countTotalPoint: function(value1, value2){
+      return this.totalPoint = this.totalPoint - value1 + value2
+    }
   }
 }
 </script>
